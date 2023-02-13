@@ -8,10 +8,12 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.dldmswo1209.noteapp.R
 import com.dldmswo1209.noteapp.databinding.FragmentNoteDetailBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class NoteDetailFragment : Fragment() {
     private lateinit var binding: FragmentNoteDetailBinding
-    private val viewModel: NoteViewModel by viewModels()
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -24,9 +26,5 @@ class NoteDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.getNotes()
-        viewModel.notes.observe(viewLifecycleOwner){
-
-        }
     }
 }

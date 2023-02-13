@@ -5,8 +5,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.dldmswo1209.noteapp.data.model.Note
 import com.dldmswo1209.noteapp.data.repository.NoteRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class NoteViewModel(
+@HiltViewModel
+class NoteViewModel @Inject constructor(
     private val repository: NoteRepository
 ): ViewModel() {
 
