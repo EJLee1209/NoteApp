@@ -4,5 +4,8 @@ import com.dldmswo1209.noteapp.data.model.Note
 import com.dldmswo1209.noteapp.util.UiState
 
 interface NoteRepository{
-    fun getNotes() : UiState<List<Note>>
+    fun getNotes(result: (UiState<List<Note>>) -> Unit)
+    fun addNote(note: Note, result: (UiState<String>) -> Unit)
+
+
 }

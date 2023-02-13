@@ -7,15 +7,33 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.dldmswo1209.noteapp.R
 import com.dldmswo1209.noteapp.databinding.FragmentNoteListingBinding
 import com.dldmswo1209.noteapp.util.UiState
+import com.dldmswo1209.noteapp.util.hide
+import com.dldmswo1209.noteapp.util.show
+import com.dldmswo1209.noteapp.util.toast
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class NoteListingFragment : Fragment() {
     private lateinit var binding: FragmentNoteListingBinding
     private val viewModel: NoteViewModel by viewModels()
+    private val adapter by lazy{
+        NoteListingAdapter(
+            onItemClicked = { pos, item->
+
+            },
+            onEditClicked = { pos, item->
+
+            },
+            onDeleteClicked = { pos, item->
+
+            },
+
+        )
+    }
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -28,17 +46,25 @@ class NoteListingFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.recyclerview.adapter = adapter
+        binding.btnCreate.setOnClickListener {
+            findNavController().navigate(R.id.action_noteListingFragment_to_noteDetailFragment)
+        }
+
+
         viewModel.getNotes()
         viewModel.notes.observe(viewLifecycleOwner){state->
             when(state){
                 is UiState.Loading -> {
-                    Log.e("testt", "Loading" )
+                    binding.progressBar.show()
                 }
                 is UiState.Failure -> {
-                    Log.e("testt", state.error.toString() )
+                    binding.progressBar.hide()
+                    toast(state.error)
                 }
                 is UiState.Success -> {
-                    Log.d("testt", "data: ${state.data}}")
+                    binding.progressBar.hide()
+                    adapter.submitList(state.data.toMutableList())
                 }
             }
         }
