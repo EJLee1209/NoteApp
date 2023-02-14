@@ -14,14 +14,13 @@ class NoteListingAdapter(
     val onDeleteClicked: (Int, Note) -> Unit
 ) : ListAdapter<Note, NoteListingAdapter.MyViewHolder>(diffUtil) {
 
-    inner class MyViewHolder(private val binding: ItemNoteLayoutBinding) : RecyclerView.ViewHolder(binding.root){
+    inner class MyViewHolder(val binding: ItemNoteLayoutBinding) : RecyclerView.ViewHolder(binding.root){
         fun bind(note: Note){
             binding.tvNoteIdValue.text = note.id
             binding.tvMsgValue.text = note.text
-            binding.btnModify.setOnClickListener { onEditClicked(adapterPosition, note) }
-            binding.btnDelete.setOnClickListener { onDeleteClicked(adapterPosition, note) }
-            binding.itemLayout.setOnClickListener { onItemClicked(adapterPosition, note) }
-
+            binding.btnModify.setOnClickListener { onEditClicked(bindingAdapterPosition, note) }
+            binding.btnDelete.setOnClickListener { onDeleteClicked(bindingAdapterPosition, note) }
+            binding.itemLayout.setOnClickListener { onItemClicked(bindingAdapterPosition, note) }
         }
     }
 
@@ -34,7 +33,10 @@ class NoteListingAdapter(
     }
 
     fun removeItem(position: Int){
+        val currentList = currentList.toMutableList()
+        if(currentList.size <= position) return
         currentList.removeAt(position)
+        submitList(currentList)
     }
 
     companion object{

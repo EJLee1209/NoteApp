@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.dldmswo1209.noteapp.R
+import com.dldmswo1209.noteapp.data.model.Note
 import com.dldmswo1209.noteapp.databinding.FragmentNoteListingBinding
 import com.dldmswo1209.noteapp.util.UiState
 import com.dldmswo1209.noteapp.util.hide
@@ -20,6 +21,8 @@ import dagger.hilt.android.AndroidEntryPoint
 class NoteListingFragment : Fragment() {
     private lateinit var binding: FragmentNoteListingBinding
     private val viewModel: NoteViewModel by viewModels()
+    private var deletePosition : Int = -1
+
     private val adapter by lazy{
         NoteListingAdapter(
             onItemClicked = { pos, item->
@@ -35,7 +38,8 @@ class NoteListingFragment : Fragment() {
                 })
             },
             onDeleteClicked = { pos, item->
-
+                deletePosition = pos
+                viewModel.deleteNote(item)
             },
 
         )
@@ -73,6 +77,25 @@ class NoteListingFragment : Fragment() {
                 is UiState.Success -> {
                     binding.progressBar.hide()
                     adapter.submitList(state.data.toMutableList())
+                }
+            }
+        }
+
+        viewModel.deleteNote.observe(viewLifecycleOwner){state->
+            when(state){
+                is UiState.Loading -> {
+                    binding.progressBar.show()
+                }
+                is UiState.Failure -> {
+                    binding.progressBar.hide()
+                    toast(state.error)
+                }
+                is UiState.Success -> {
+                    binding.progressBar.hide()
+                    toast(state.data)
+                    if(deletePosition != -1){
+                        adapter.removeItem(deletePosition)
+                    }
                 }
             }
         }
