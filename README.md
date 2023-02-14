@@ -7,4 +7,5 @@
 <br>
 MVVM 패턴을 익히기 위해서 만든 예제입니다.<br>
 
-[예제 출처(YouTube)](https://www.youtube.com/playlist?list=PLIIWAqaTrNlg7q0cfajkBj8OwG60qpBVL)
+[예제 출처(YouTube)](https://www.youtube.com/playlist?list=PLIIWAqaTrNlg7q0cfajkBj8OwG60qpBVL)<br>
+[예제 출처(Github Repository)](https://github.com/shahzadafridi/FirebaseWithMVVM)
