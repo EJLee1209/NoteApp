@@ -18,9 +18,9 @@ class NoteListingAdapter(
         fun bind(note: Note){
             binding.tvNoteIdValue.text = note.id
             binding.tvMsgValue.text = note.text
-            binding.btnModify.setOnClickListener { onEditClicked.invoke(adapterPosition, note) }
-            binding.btnDelete.setOnClickListener { onDeleteClicked.invoke(adapterPosition, note) }
-            binding.itemLayout.setOnClickListener { onItemClicked.invoke(adapterPosition, note) }
+            binding.btnModify.setOnClickListener { onEditClicked(adapterPosition, note) }
+            binding.btnDelete.setOnClickListener { onDeleteClicked(adapterPosition, note) }
+            binding.itemLayout.setOnClickListener { onItemClicked(adapterPosition, note) }
 
         }
     }

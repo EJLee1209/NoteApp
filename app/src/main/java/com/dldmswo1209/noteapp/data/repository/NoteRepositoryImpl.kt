@@ -7,7 +7,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import java.util.Date
 
 class NoteRepositoryImpl(
-    val database: FirebaseFirestore
+    private val database: FirebaseFirestore
 ) : NoteRepository {
     override fun getNotes(result: (UiState<List<Note>>) -> Unit)  {
         database.collection(FireStoreTables.NOTE)
@@ -18,12 +18,12 @@ class NoteRepositoryImpl(
                     val note = document.toObject(Note::class.java)
                     notes.add(note)
                 }
-                result.invoke(
+                result(
                     UiState.Success(notes)
                 )
             }
             .addOnFailureListener {
-                result.invoke(
+                result(
                     UiState.Failure(
                         it.localizedMessage
                     )
@@ -38,15 +38,29 @@ class NoteRepositoryImpl(
         document
             .set(note)
             .addOnSuccessListener {
-                result.invoke(
+                result(
                     UiState.Success("Note has been created successfully")
                 )
             }
             .addOnFailureListener {
-                result.invoke(
-                    UiState.Failure(
-                        it.localizedMessage
-                    )
+                result(
+                    UiState.Failure(it.localizedMessage)
+                )
+            }
+    }
+
+    override fun updateNote(note: Note, result: (UiState<String>) -> Unit) {
+        val document = database.collection(FireStoreTables.NOTE).document(note.id)
+        document
+            .set(note)
+            .addOnSuccessListener {
+                result(
+                    UiState.Success("Note has been update successfully")
+                )
+            }
+            .addOnFailureListener {
+                result(
+                    UiState.Failure(it.localizedMessage)
                 )
             }
     }
