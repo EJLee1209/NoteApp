@@ -1,13 +1,11 @@
-package com.dldmswo1209.noteapp.note
+package com.dldmswo1209.noteapp.ui.note
 
-import android.app.ActionBar
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
-import androidx.core.view.children
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -16,7 +14,6 @@ import com.dldmswo1209.noteapp.data.model.Note
 import com.dldmswo1209.noteapp.databinding.FragmentNoteDetailBinding
 import com.dldmswo1209.noteapp.util.*
 import com.google.android.material.button.MaterialButton
-import com.google.android.material.chip.Chip
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat
 import java.util.*
@@ -24,9 +21,8 @@ import java.util.*
 @AndroidEntryPoint
 class NoteDetailFragment : Fragment() {
 
-    val TAG: String = "NoteDetailFragment"
     lateinit var binding: FragmentNoteDetailBinding
-    val viewModel: NoteViewModel by viewModels()
+    private val viewModel: NoteViewModel by viewModels()
     var objNote: Note? = null
     var tagsList: MutableList<String> = arrayListOf()
 

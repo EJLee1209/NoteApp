@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/background_clr"
     android:padding="16dp"
-    tools:context=".note.NoteDetailFragment">
+    tools:context=".ui.note.NoteDetailFragment">
 
     <ImageView
         android:id="@+id/back"
@@ -79,13 +79,14 @@
     <androidx.core.widget.NestedScrollView
         android:id="@+id/content_nsv"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginTop="22dp"
         android:fillViewport="true"
         android:scrollbars="none"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/top_divider">
+        app:layout_constraintTop_toBottomOf="@+id/top_divider"
+        app:layout_constraintBottom_toBottomOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/content_layout"
@@ -96,13 +97,15 @@
             <EditText
                 android:id="@+id/title"
                 style="@style/TitleStyle"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
                 android:hint="Title"
                 android:text=""
+
                 android:textColor="@color/black"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:ignore="TouchTargetSizeCheck" />
 
@@ -224,14 +227,15 @@
                 android:id="@+id/description"
                 style="@style/DescStyle"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:layout_marginTop="22dp"
                 android:background="@android:color/transparent"
                 android:gravity="top|left"
                 android:hint="Description"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/middle_divider"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/middle_divider" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -23,6 +23,7 @@
             android:textAppearance="@style/SubTitleStyle"
             android:textColor="@color/black"
             android:textSize="14dp"
+            android:padding="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

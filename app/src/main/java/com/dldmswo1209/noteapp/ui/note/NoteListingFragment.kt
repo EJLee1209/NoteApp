@@ -1,7 +1,6 @@
-package com.dldmswo1209.noteapp.note
+package com.dldmswo1209.noteapp.ui.note
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -11,7 +10,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.dldmswo1209.noteapp.R
-import com.dldmswo1209.noteapp.data.model.Note
 import com.dldmswo1209.noteapp.databinding.FragmentNoteListingBinding
 import com.dldmswo1209.noteapp.util.UiState
 import com.dldmswo1209.noteapp.util.hide

@@ -1,4 +1,4 @@
-package com.dldmswo1209.noteapp.note
+package com.dldmswo1209.noteapp.ui.note
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
