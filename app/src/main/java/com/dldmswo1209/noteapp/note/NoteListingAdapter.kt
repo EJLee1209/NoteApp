@@ -7,19 +7,41 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.dldmswo1209.noteapp.data.model.Note
 import com.dldmswo1209.noteapp.databinding.ItemNoteLayoutBinding
+import com.dldmswo1209.noteapp.util.addChip
+import com.dldmswo1209.noteapp.util.hide
+import java.text.SimpleDateFormat
 
 class NoteListingAdapter(
     val onItemClicked: (Int, Note) -> Unit,
-    val onEditClicked: (Int, Note) -> Unit,
-    val onDeleteClicked: (Int, Note) -> Unit
 ) : ListAdapter<Note, NoteListingAdapter.MyViewHolder>(diffUtil) {
+
+    val sdf = SimpleDateFormat("dd MMM yyyy")
 
     inner class MyViewHolder(val binding: ItemNoteLayoutBinding) : RecyclerView.ViewHolder(binding.root){
         fun bind(note: Note){
-            binding.tvNoteIdValue.text = note.id
-            binding.tvMsgValue.text = note.text
-            binding.btnModify.setOnClickListener { onEditClicked(bindingAdapterPosition, note) }
-            binding.btnDelete.setOnClickListener { onDeleteClicked(bindingAdapterPosition, note) }
+            binding.title.text = note.title
+            binding.date.text = sdf.format(note.date)
+            binding.tags.apply {
+                if(note.tags.isNullOrEmpty()){
+                    hide()
+                }else{
+                    removeAllViews()
+                    if(note.tags.size > 2){
+                        note.tags.subList(0,2).forEach{ tag-> addChip(tag) }
+                        addChip("+${note.tags.size - 2}")
+                    }else{
+                        note.tags.forEach{ tag-> addChip(tag) }
+                    }
+                }
+            }
+            binding.desc.apply {
+                if(note.description.length > 120){
+                    text = "${note.description.substring(0, 120)}..."
+                }else{
+                    text = note.description
+                }
+            }
+
             binding.itemLayout.setOnClickListener { onItemClicked(bindingAdapterPosition, note) }
         }
     }
