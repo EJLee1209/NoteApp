@@ -1,6 +1,5 @@
 package com.dldmswo1209.noteapp.data.repository
 
-import com.dldmswo1209.noteapp.data.model.Note
 import com.dldmswo1209.noteapp.data.model.User
 import com.dldmswo1209.noteapp.util.FireStoreTables
 import com.dldmswo1209.noteapp.util.UiState
@@ -83,10 +82,24 @@ class AuthRepositoryImpl(
 
     }
 
-
-    override fun loginUser(user: User, result: (UiState<String>) -> Unit) {
-
+    override fun loginUser(
+        email: String,
+        password: String,
+        result: (UiState<String>) -> Unit
+    ) {
+        auth.signInWithEmailAndPassword(email, password)
+            .addOnCompleteListener { task->
+                if(task.isSuccessful){
+                    result(UiState.Success("Login successfully!"))
+                }else{
+                    result(UiState.Failure("Authentication failed, ch;eck email and password"))
+                }
+            }
+            .addOnFailureListener {
+                result(UiState.Failure("Authentication failed, ch;eck email and password"))
+            }
     }
+
 
     override fun forgotPassword(user: User, result: (UiState<String>) -> Unit) {
 
